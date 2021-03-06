@@ -1,0 +1,13 @@
+class main():
+    def __init__(self):
+        print("wow")
+
+    #insert
+    #end
+
+    def backtest():
+        pass
+
+if __name__ == "__main__":
+    main = main()
+    main
