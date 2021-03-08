@@ -1,9 +1,11 @@
+MANIFEST.in
 README.md
 pyproject.toml
 setup.cfg
 setup.py
-CompuTrade/CompuTrade.py
+CompuTrade/ClientEngine.py
 CompuTrade/__init__.py
+CompuTrade/template.txt
 CompuTrade.egg-info/PKG-INFO
 CompuTrade.egg-info/SOURCES.txt
 CompuTrade.egg-info/dependency_links.txt

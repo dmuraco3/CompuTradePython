@@ -1,13 +1,17 @@
-from test import main
+from TestCompuTrade import CompuTradeEngine
+import random
 
-#import 
-import os
-import CompuTrade
-#end import
+CompuTradeEngine = CompuTradeEngine()
 
-#start 
-def Algorithm(self):
-    print(csp)
-#end
+CompuTradeEngine.config()
 
-main()
+
+@CompuTradeEngine.algorithm
+def algo():
+    self.sma(10)
+    self.sma(30)
+    self.ema(10)
+    # print(self.sma(10))
+    
+
+

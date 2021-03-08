@@ -1,9 +1,8 @@
 class main():
     def __init__(self):
-        print("wow")
+        pass
 
-    #insert
-    #end
+    #InsertAlgorithm
 
     def backtest():
         pass

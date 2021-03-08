@@ -1,1 +1,3 @@
 include CompuTrade/template.txt
+
+recursive-include data *
