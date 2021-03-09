@@ -41,7 +41,9 @@ class CompuTradeEngine():
         self.algorithmFunc = None
         self.interval = 'd'
         self.position = False
-        self.MAXperiod = 0
+        self.shares = 0
+        self.balance = 1000
+        self.trades = []
 
     def backtest_algorithm(self):
         symbols = ['AAPL', 'SPY']
@@ -54,24 +56,34 @@ class CompuTradeEngine():
 
 
                 self.index+=1
+
+            profit = ( self.data['Close'][-1]*self.shares ) - ( self.trades[-1][1] * self.shares )
+            self.balance = profit + ( self.trades[-1][1] * self.shares )
+            self.shares = 0
+
             print(self.data.head())
-            print(self.data['ema_10'][-20: -1])
             plt.plot(self.data['Close'])
-            plt.plot(self.data['sma_10'])
-            plt.plot(self.data['ema_10'])
+            plt.plot(self.data['ema_20'])
+            plt.plot(self.data['ema_100'])
+            print(self.balance, self.shares)
+            self.balance = 1000
+            self.shares = 0
             plt.show()
             # print(self.data.loc[:, 'Close'].rolling(window=10).mean())
             # print(self.data.iloc[:, 1].rolling(window=4).mean())
             # print(self.data['Close'][-4:-1].max())
 
     def buy(self):
-        if not self.position:
-            self.position = True
+        if self.shares == 0 and self.balance > 0 :
             print('buy')
+            self.shares = self.balance / self.data['Close'][self.index]
+            self.balance = 0
+            self.trades.append(tuple([self.shares, self.data['Close'][self.index]])) 
     def sell(self):
-        if self.position:
-            self.position = False
-
+        if self.shares != 0:
+            print('sell', ( self.trades[-1][1] ))
+            profit = ( self.data['Close'][self.index]*self.shares ) - ( self.trades[-1][1] * self.shares )
+            self.balance = profit + ( self.trades[-1][1] * self.shares )
+            self.shares = 0
     def config(self, period='15min'):
         self.period = period
-
