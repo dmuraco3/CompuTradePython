@@ -45,10 +45,10 @@ class CompuTradeEngine():
         self.trades = []
 
     def backtest_algorithm(self):
-        symbols = ['AAPL', 'SPY']
+        symbols = ['AAPL', 'GME']
         for symbol in symbols:
             self.index=0
-            self.data = pdr.get_data_yahoo(symbols=symbol, interval=self.interval) # iterates over symbols by symbol to backtest algorithm on symbol data
+            self.data = pdr.get_data_yahoo(symbols=symbol, interval=self.interval, start='JAN-01-2020' end='DEC-28-2020') # iterates over symbols by symbol to backtest algorithm on symbol data
             self.close = self.data['Close']
             for index, rows in self.data.iterrows():
                 self.algo(self)
@@ -64,6 +64,7 @@ class CompuTradeEngine():
             plt.plot(self.data['Close'])
             plt.plot(self.data['ema_20'])
             plt.plot(self.data['ema_100'])
+            plt.title(symbol)
             print(self.balance, self.shares)
             self.balance = 1000
             self.shares = 0

@@ -3,8 +3,12 @@ README.md
 pyproject.toml
 setup.cfg
 setup.py
-CompuTrade/ClientEngine.py
 CompuTrade/__init__.py
+CompuTrade/__main__.py
+CompuTrade/_algorithm.py
+CompuTrade/_buildPython.py
+CompuTrade/_ema.py
+CompuTrade/_sma.py
 CompuTrade/template.txt
 CompuTrade.egg-info/PKG-INFO
 CompuTrade.egg-info/SOURCES.txt

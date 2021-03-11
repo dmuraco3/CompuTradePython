@@ -22,6 +22,12 @@ class CompuTradeEngine():
 
     from ._ema import ema
 
+    from ._cci import cci
+
+    from ._emv import emv
+
+    from ._roc import roc
+
     def __init__(self, backtest=True, build=False):
         self.constuctors()
 
@@ -42,14 +48,15 @@ class CompuTradeEngine():
         self.interval = 'd'
         self.position = False
         self.shares = 0
-        self.balance = 1000
+        self.balance = 10000
         self.trades = []
+        self.sells = []
 
     def backtest_algorithm(self):
-        symbols = ['AAPL', 'SPY']
+        symbols = ['AAPL', 'GME']
         for symbol in symbols:
             self.index=0
-            self.data = pdr.get_data_yahoo(symbols=symbol, interval=self.interval) # iterates over symbols by symbol to backtest algorithm on symbol data
+            self.data = pdr.get_data_yahoo(symbols=symbol, interval=self.interval, start='JAN-01-2020', end='DEC-28-2020') # iterates over symbols by symbol to backtest algorithm on symbol data
             self.close = self.data['Close']
             for index, rows in self.data.iterrows():
                 self.algo(self)
@@ -58,32 +65,39 @@ class CompuTradeEngine():
                 self.index+=1
 
             profit = ( self.data['Close'][-1]*self.shares ) - ( self.trades[-1][1] * self.shares )
+            self.sells.append(profit) 
             self.balance = profit + ( self.trades[-1][1] * self.shares )
             self.shares = 0
 
             print(self.data.head())
-            plt.plot(self.data['Close'])
-            plt.plot(self.data['ema_20'])
-            plt.plot(self.data['ema_100'])
-            print(self.balance, self.shares)
-            self.balance = 1000
+            fig, ax = plt.subplots(nrows=2)
+
+            ax[0].set_title(symbol)
+            ax[0].plot(self.data['Close'])
+            ax[0].plot(self.data['ema_20'])
+            ax[0].plot(self.data['ema_100'])
+
+            ax[1].set_title('cci')
+            ax[1].plot(self.data['cci_20'])
+            
+            print(self.balance)
+
+            self.balance = 10000
             self.shares = 0
             plt.show()
-            # print(self.data.loc[:, 'Close'].rolling(window=10).mean())
-            # print(self.data.iloc[:, 1].rolling(window=4).mean())
-            # print(self.data['Close'][-4:-1].max())
-
+    
     def buy(self):
         if self.shares == 0 and self.balance > 0 :
-            print('buy')
             self.shares = self.balance / self.data['Close'][self.index]
             self.balance = 0
             self.trades.append(tuple([self.shares, self.data['Close'][self.index]])) 
+    
     def sell(self):
         if self.shares != 0:
-            print('sell', ( self.trades[-1][1] ))
             profit = ( self.data['Close'][self.index]*self.shares ) - ( self.trades[-1][1] * self.shares )
+            self.sells.append(profit) 
             self.balance = profit + ( self.trades[-1][1] * self.shares )
             self.shares = 0
+    
     def config(self, period='15min'):
         self.period = period

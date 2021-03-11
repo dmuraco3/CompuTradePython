@@ -8,7 +8,10 @@ CompuTradeEngine.config()
 
 @CompuTradeEngine.algorithm
 def algo():
-    if self.ema(20) > self.ema(100):
+    self.cci()
+    self.emv()
+    self.roc()
+    if self.ema(20) > self.ema(100) and self.ema(50) > self.ema(100):
         self.buy()
     else:
         self.sell()
