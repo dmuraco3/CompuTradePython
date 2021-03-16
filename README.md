@@ -1,3 +1,3 @@
 # CompuTrade
 
-CompuTrade is a library designed for trading algorithms
+Quantuiti is a platform designed to make automated trading easier

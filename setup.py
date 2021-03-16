@@ -4,17 +4,17 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="CompuTrade",
-    version='0.0.5',
+    name="Quantuiti",
+    version='0.0.1',
     author="Dylan Muraco",
     author_email="dylanjmuraco@gmail.com",
-    description="CompuTrade library for algorithmic trading",
+    description="Quantuiti library for quantitative finance",
     long_description=long_description,
     long_description_content_type="text/markdown",
     include_package_data=True,
-    url="https://github.com/dmuraco3/CompuTradePython",
+    url="https://github.com/quantuiti/python-quantuiti",
     project_urls={
-        "Bug Tracker": "https://github.com/dmuraco3/CompuTradePython/issues",
+        "Bug Tracker": "https://github.com/quantuiti/python-quantuiti/issues",
     },
     classifiers=[
         "Programming Language :: Python :: 3",

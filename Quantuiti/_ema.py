@@ -12,14 +12,10 @@ def ema(self, N):
             
     except Exception as error:
         self.sma(N)
-        print(self.data.head())
         temp=[]
         for index, row in self.data.iterrows():
-            # print(type(row[dependent]))
-            print(np.isnan(row[dependent]))
             if np.isnan(row[dependent]):
                 temp.append(row[dependent])
-                # print(row[dependent])
             else:
                 if np.isnan(temp[-1]):
                     ema = (self.data['Close'][index] - self.data[dependent][index]) * (2 / (N + 1)) + self.data[dependent][index]
